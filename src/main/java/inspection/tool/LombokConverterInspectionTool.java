@@ -11,4 +11,11 @@ public class LombokConverterInspectionTool extends AbstractBaseJavaLocalInspecti
     public String getGroupDisplayName() {
         return LOMBOK_CONVERTER_GROUP_NAME;
     }
+
+
+    @Override
+    public boolean isEnabledByDefault() {
+        return true;
+    }
+
 }

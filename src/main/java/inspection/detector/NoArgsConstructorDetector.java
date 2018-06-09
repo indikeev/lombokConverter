@@ -29,10 +29,13 @@ public class NoArgsConstructorDetector {
         if (psiMethod.getParameterList().getParameters().length != 0)
             return;
 
+        if (psiMethod.getModifierList().getAnnotations().length != 0) {
+            return;
+        }
+
         final PsiCodeBlock body = psiMethod.getBody();
         if (body == null)
             return;
-
 
         final PsiClass psiClass = PsiTreeUtil.getParentOfType(psiMethod, PsiClass.class);
         if (psiClass == null)

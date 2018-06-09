@@ -4,14 +4,11 @@ import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.psi.JavaElementVisitor;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiMethod;
-import inspection.detector.NoArgsConstructorDetector;
-import inspection.quickFixes.ConverterNoArgsConstructorToAnnotationFix;
+import inspection.detector.setter.SetterDetector;
+import inspection.quickFixes.ConvertSetterToAnnotationFix;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Created by 1 on 12.05.2018.
- */
-public class NoArgsConstructorLocalInspectionTool extends LombokConverterInspectionTool {
+public class SetterLocalInspectionTool extends LombokConverterInspectionTool {
     @NotNull
     @Override
     public String getDisplayName() {
@@ -26,22 +23,17 @@ public class NoArgsConstructorLocalInspectionTool extends LombokConverterInspect
 
     @NotNull
     @Override
-    public String getGroupDisplayName() {
-        return "group name";
-    }
-
-    @NotNull
-    @Override
     public PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly) {
         return new JavaElementVisitor() {
             @Override
             public void visitMethod(PsiMethod method) {
                 super.visitMethod(method);
-                NoArgsConstructorDetector detector = new NoArgsConstructorDetector(method);
-                if (detector.isNoArgsConstructor()) {
-                    holder.registerProblem(method, "Convert NoArgsConstructor to annotation", new ConverterNoArgsConstructorToAnnotationFix());
+                SetterDetector detector = new SetterDetector(method);
+                if (detector.isSetter()) {
+                    holder.registerProblem(method, "Convert setter to annotation", new ConvertSetterToAnnotationFix());
                 }
             }
         };
     }
+
 }

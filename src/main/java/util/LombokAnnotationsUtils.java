@@ -15,6 +15,7 @@ public class LombokAnnotationsUtils {
 
     public static final String LOMBOK_GETTER = "lombok.Getter";
     public static final String LOMBOK_NO_ARGS_CONSTRUCTOR = "lombok.NoArgsConstructor";
+    private static final String LOMBOK_SETTER = "lombok.Setter";
 
 
     private static String createSingleAttribute(String attribute) {
@@ -36,6 +37,10 @@ public class LombokAnnotationsUtils {
 
     public static String getGetterAnnotation(int accessLevel) {
         return LOMBOK_GETTER + getSimpleAccessAttribute(accessLevel);
+    }
+
+    public static String getSetterAnnotation(int accessLevel) {
+        return LOMBOK_SETTER + getSimpleAccessAttribute(accessLevel);
     }
 
     public static String getNoArgConstructorAnnotation(int accessLevel) {
